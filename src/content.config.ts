@@ -33,13 +33,23 @@ import { z } from "astro/zod";
 
 const blog = defineCollection({
 	loader: glob({ base: "./src/content/blog", pattern: "**/*.md" }),
-	schema: z.object({
-		slug: z.string(),
-		title: z.string(),
-		author: z.string(),
-		date: z.coerce.date(),
-		state: z.literal(["experimental", "building", "idea", "sharing", "final"]),
-	}),
+	schema: ({ image }) =>
+		z.object({
+			slug: z.string(),
+			title: z.string(),
+			author: z.string(),
+			date: z.coerce.date(),
+			state: z.literal([
+				"experimental",
+				"building",
+				"idea",
+				"sharing",
+				"final",
+			]),
+			cover: image(),
+			coverAlt: z.string(),
+			excerpt: z.string().optional(),
+		}),
 });
 
 export const collections = {

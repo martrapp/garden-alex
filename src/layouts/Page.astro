@@ -1,6 +1,11 @@
 ---
 import GraphIcon from "../assets/pixel/chart-network.svg";
 import Shell from "./Shell.astro";
+
+interface Props {
+	wide?: boolean;
+}
+const { wide } = Astro.props;
 ---
 
 <Shell>
@@ -12,14 +17,7 @@ import Shell from "./Shell.astro";
 		>
 			<nav
 				id="site-nav"
-				class="
-      rounded-full px-fluid-gutter py-1
-      bg-amber-50/(--nav-bg-a) dark:bg-neutral-800/(--nav-bg-a)
-      backdrop-blur-(--nav-blur)
-      shadow-lg shadow-black/(--nav-shadow-a) dark:shadow-black/(--nav-shadow-dark-a)
-      ring-1 ring-black/(--nav-ring-a) dark:ring-white/(--nav-ring-dark-a)
-      [--nav-bg-a:0] [--nav-blur:0px] [--nav-shadow-a:0] [--nav-shadow-dark-a:0] [--nav-ring-a:0] [--nav-ring-dark-a:0]
-    "
+				class="rounded-full px-fluid-gutter py-1 bg-amber-50/(--nav-bg-a) dark:bg-neutral-800/(--nav-bg-a) backdrop-blur-(--nav-blur) shadow-lg shadow-black/(--nav-shadow-a) dark:shadow-black/(--nav-shadow-dark-a) ring-1 ring-black/(--nav-ring-a) dark:ring-white/(--nav-ring-dark-a) [--nav-bg-a:0] [--nav-blur:0px] [--nav-shadow-a:0] [--nav-shadow-dark-a:0] [--nav-ring-a:0] [--nav-ring-dark-a:0]"
 			>
 				<ul class="flex flex-wrap items-center justify-center gap-fluid-s">
 					<li>
@@ -50,7 +48,10 @@ import Shell from "./Shell.astro";
 			</nav>
 		</header>
 
-		<main class="flex-1 w-full flex flex-col min-h-0">
+		<main
+			class:list={[{ "px-fluid-l": !wide }]}
+			class="flex-1 w-full flex flex-col min-h-0"
+		>
 			<slot name="main" />
 		</main>
 		<footer
@@ -61,8 +62,9 @@ import Shell from "./Shell.astro";
 				<a
 					href="https://alexanderniebuhr.me"
 					class="hover:text-neutral-700 dark:hover:text-neutral-300 transition-colors"
-					>Alexander Niebuhr</a
 				>
+					Alexander Niebuhr
+				</a>
 			</p>
 		</footer>
 	</Fragment>

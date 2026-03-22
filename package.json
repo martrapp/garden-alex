@@ -11,6 +11,7 @@
 		"check": "wrangler types --include-runtime --include-env && astro check",
 		"build": "astro build",
 		"preview": "astro build && astro preview",
+		"preview:wrangler": "astro build && wrangler dev",
 		"deploy": "astro build && wrangler deploy"
 	},
 	"devDependencies": {
@@ -29,6 +30,7 @@
 		"@astrojs/cloudflare": "13.1.3",
 		"@astrojs/rss": "4.0.17",
 		"@astrojs/sitemap": "3.7.1",
+		"@cloudflare/vite-plugin": "1.30.0",
 		"@expressive-code/plugin-collapsible-sections": "0.41.7",
 		"astro": "6.0.8",
 		"astro-expressive-code": "0.41.7",

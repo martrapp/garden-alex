@@ -3,11 +3,9 @@ export const prerender = true;
 
 import { getRelativeLocaleUrl } from "astro:i18n";
 import Page from "../layouts/Page.astro";
-
-// https://v6.docs.astro.build/en/guides/prefetch/#prefetch-programmatically
 ---
 
-<Page title="Dashboard">
+<Page>
 	<Fragment slot="head"> <title>Dashboard</title> </Fragment>
 	<Fragment slot="main">
 		<h1>Dashboard</h1>

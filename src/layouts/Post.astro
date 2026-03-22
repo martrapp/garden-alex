@@ -9,10 +9,8 @@ import Understanding from "../components/icons/Understanding.astro";
 import Page from "./Page.astro";
 
 type Post = CollectionEntry<"blog">["data"];
-interface Props extends Post {
-	pageTitle: string;
-}
-const { pageTitle, title } = Astro.props;
+interface Props extends Post {}
+const { title } = Astro.props;
 const description = `${title} — by ${Astro.props.author}`;
 
 const absoluteLocaleUrlList = getAbsoluteLocaleUrlList(
@@ -24,7 +22,7 @@ const lang = Astro.currentLocale || "en";
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 ---
 
-<Page title={pageTitle} description={description}>
+<Page>
 	<Fragment slot="head">
 		<title>{title}</title>
 		<meta name="description" content={description}>
@@ -54,7 +52,11 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 				>
 					{Astro.props.date.toLocaleDateString("de-DE")}
 				</time>
-				<h1 class="text-fluid-heading font-bold text-center">{title}</h1>
+				<h1
+					transition:name={encodeURIComponent(title)}
+					class="text-fluid-heading font-bold text-center"
+					>{title}</h1
+				>
 				<div
 					role="group"
 					aria-label="Post maturity stages"

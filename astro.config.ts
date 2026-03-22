@@ -10,17 +10,16 @@ export default defineConfig({
 	site: "https://alexanderniebuhr.garden",
 	output: "server",
 	adapter: cloudflare({
-		imagesBindingName: "cloudflare-binding",
+		imageService: "cloudflare-binding",
 	}),
 	compressHTML: false,
 	experimental: {
 		clientPrerender: true,
 		contentIntellisense: true,
 		svgo: true,
-		chromeDevtoolsWorkspace: true,
-		rustCompiler: true,
+		rustCompiler: false,
 		queuedRendering: {
-			enabled: true,
+			enabled: false,
 			contentCache: true,
 		},
 	},

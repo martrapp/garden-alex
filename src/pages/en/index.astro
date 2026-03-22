@@ -1,11 +1,10 @@
 ---
+// FIXME somehow it is broken when prerendering is enabled.
 export const prerender = true;
 
 import { getCollection } from "astro:content";
+import Picture from "astro/components/Picture.astro";
 import Page from "../../layouts/Page.astro";
-
-console.log(Astro.currentLocale);
-console.log(Astro.preferredLocale);
 
 const posts = (
 	await getCollection("blog", ({ id }) => {
@@ -14,18 +13,72 @@ const posts = (
 ).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<Page title="Hallo, Welt!">
+<Page>
 	<Fragment slot="head"> <title>Blog Übersicht</title> </Fragment>
 	<Fragment slot="main">
-		<h1>Hello, world!</h1>
-		<section aria-label="Blog-Beiträge">
+		<h1 class="text-center text-4xl font-black">Posts</h1>
+
+		<section class="grid gap-fluid-s p-fluid-xs">
 			{posts.map((post) => (
-			<article>
-				<h2>{post.data.title}</h2>
-				<p>Von {post.data.author} am <time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString("de-DE")}</time> veröffentlicht</p>
-				<a href={`/${post.id}`} aria-label={`Weiterlesen: ${post.data.title}`}>Weiterlesen</a>
-			</article>
-		))}
+					<article class="flex transition dark:hover:bg-neutral-800/50 hover:bg-neutral-200/50">
+						<div class="rotate-180 p-2 [writing-mode:vertical-lr] select-none">
+							<time
+								datetime={post.data.date.toDateString()}
+								class="flex items-center justify-between gap-4 text-xs font-bold text-gray-900 uppercase dark:text-white"
+							>
+								<span>
+									{post.data.date.toLocaleDateString(Astro.currentLocale, {
+										year: "numeric",
+									})}
+								</span>
+								<span class="w-px flex-1 bg-gray-900/10 dark:bg-white/10" />
+								<span>
+									{post.data.date.toLocaleDateString(Astro.currentLocale, {
+										month: "short",
+										day: "2-digit",
+									})}
+								</span>
+							</time>
+						</div>
+
+						<div class="hidden sm:block sm:basis-56">
+							<Picture
+								class="aspect-square h-full w-full object-cover"
+								formats={["avif", "webp"]}
+								src={post.data.cover}
+								layout="constrained"
+								alt={post.data.coverAlt}
+							/>
+						</div>
+
+						<div class="flex flex-1 flex-col justify-between">
+							<div class="border-gray-900/10 border-s p-4 sm:border-l-transparent sm:p-6 dark:border-white/10">
+								<a
+									href={`/${post.id}`}
+								>
+									<h3 transition:name={encodeURIComponent(post.data.title)} class="font-bold text-gray-900 uppercase dark:text-white">
+										{post.data.title}
+									</h3>
+								</a>
+
+								{post.data.excerpt && (
+									<p class="mt-2 line-clamp-3 text-gray-700 text-sm/relaxed dark:text-gray-200">
+										{post.data.excerpt}
+									</p>
+								)}
+							</div>
+
+							<div class="sm:flex sm:items-end sm:justify-end">
+								<a
+									href={`/${post.id}`}
+									class="block bg-yellow-400 px-5 py-3 text-center font-bold text-gray-900 text-xs uppercase transition hover:bg-yellow-500"
+								>
+									Read Post
+								</a>
+							</div>
+						</div>
+					</article>
+				))}
 		</section>
 	</Fragment>
 </Page>

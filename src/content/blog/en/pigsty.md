@@ -1,9 +1,12 @@
 ---
 slug: "en/pigsty"
-title: "Pigsty Production Guide"
+title: "Deploy Pigsty on Proxmox VE"
 author: "Alexander Niebuhr"
-date: "2024-03-22T00:00:00.000Z"
+date: "2026-03-22T00:00:00.000Z"
 state: "experimental"
+cover: "./pigsty.png"
+coverAlt: "Isometric cover that shows a 3d datacenter with pigsty and proxmox."
+excerpt: "Deploy Pigsty on Proxmox VE without getting lost in the docs. A practical WIP guide to a reproducible self-hosted PostgreSQL cluster with VMs, SSH, networking, storage, and service access. It covers the parts that usually slow people down most: node prep, Pigsty bootstrap, cluster configuration, and PostgreSQL service endpoints."
 ---
 
 Pigsty seems to be a great way to self deploy postgresql. However their [v4 docs](https://pigsty.io/docs/) seem to be overly complex.
